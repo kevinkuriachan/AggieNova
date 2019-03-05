@@ -16,6 +16,10 @@ mags = [item.mag for item in data if item.obsFilter == fil]
 
 nameOfPlot = commandLineArgs[1].strip(".dat") + "_" + fil + ".png"
 
+mpl.rcParams.update({'font.size': 15})
+mpl.gca().invert_yaxis()
+
+mpl.title(commandLineArgs[1].strip("_uvotB15.1.dat"))
 mpl.plot(days,mags,'-o')
 mpl.xlabel("time (MJD)")
 mpl.ylabel("magnitude")
