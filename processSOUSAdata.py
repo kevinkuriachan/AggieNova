@@ -1,5 +1,7 @@
 import os
 
+filterList = ["V", "B", "U", "UVW1", "UVM2", "UVW2"]
+
 class observation:
     obsFilter = ""
     time = 0.0
@@ -61,7 +63,7 @@ class observation:
         else:
             self.exp = None
 
-        if (info[11] != "NULL"):
+        if (info[11] != "NULL" and info[11] != "**********"):
             self.telapse = float(info[11])
         else:
             self.telapse = None
@@ -83,6 +85,24 @@ class observation:
         print("Telpse[s]: \t ", self.telapse)
         print("---------------------------------")
     
+'''
+# TO DO : create supernovae class 
+class supernova:
+    name = ""
+    observations = list()
+
+    __init__(self):
+        pass 
+
+    addObs(self, observation obs):
+        pass
+    
+
+class novaeData:
+    novae = dict()
+'''
+
+
 def getFilesCurrentDirectory(extension):
     datFiles = []
     for root, dirs, files in os.walk("."):  #current all items in current directory    
@@ -103,14 +123,83 @@ def getFiles(extension, option):
     return filesToRead
 
 
+def isValidLine(line):
+    if (len(line) <= 1):
+        return False
+    if (line[0] not in filterList):
+        return False
+    return True
+
+
 def getObsList(fileName):
     obs = []
     with open(fileName) as datFile:
         for line in datFile:
-            if (("#" not in line) and (len(line)   != 0) ):
+            if isValidLine(line):
                 obs.append(observation(line))
     return obs 
 
+
+def countMaxOccurance():
+    
+    print("A: read 1 (one) specific file")
+    print("B: read all files in the current directory")
+    validOptions = ["A", "B"]
+    option = input("What do you want to do: ")
+    while option.upper() not in validOptions:
+        option = input("Choose one of the above options: ")
+
+    option = option.upper()
+
+    filesToRead = getFiles(".dat", option)
+    
+    obsList = []
+
+    fileNameToObs = dict()
+
+    for fileName in filesToRead:
+        print(fileName)
+        fileNameToObs.setdefault(fileName,getObsList(fileName))
+
+    
+    
+    maxObsFil = ""
+    maxObsFile = ""
+    maxObsCount = 0
+
+    for f in fileNameToObs:
+        filterToCount = dict()
+        filterList = ["V", "B", "U", "UVW1", "UVM2", "UVW2"]
+        for fil in filterList:
+            filterToCount.setdefault(fil, 0)
+
+        for obs in fileNameToObs[f]:
+            filterToCount[obs.obsFilter] += 1
+        
+        maxF = 0
+        maxFil = ""
+
+        for key in filterToCount:
+            if filterToCount[key] > maxF:
+                maxF = filterToCount[key]
+                maxFil = key
+
+        if maxF > maxObsCount:
+            maxObsCount = maxF
+            maxObsFil = maxFil
+            maxObsFile = f
+
+                    
+        
+    print("--------------------------")
+    print(maxObsFile)
+    print(maxObsFil)
+    print(maxObsCount)
+
+
+#below is a sample of usage:
+
+'''
 def main():
     
     print("A: read 1 (one) specific file")
@@ -128,8 +217,11 @@ def main():
     for fileName in filesToRead:
         print(fileName)
         obsList += getObsList(fileName)
-    
+    for obs in obsList:
+       obs.printInfo() 
 
 main()
+'''
 
+#countMaxOccurance()
     
