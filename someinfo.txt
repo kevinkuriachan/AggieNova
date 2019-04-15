@@ -1,0 +1,20 @@
+Type 1A: (2007af)
+ white dwarf explode , creates radioactive nikel (half life ~ 7 days)
+ the amount of energy being given off exponentially decreases 
+ brightness ~ (T^4) * (r^2) 
+ supernova getting bigger: r^2 explanding quadratically 
+ temperature decreasing: 
+ radioactive nikel still giving off some heat as supernova grows
+ each time we look at it, we see a deeper layer becuase outer ones have gone out
+ relatively cool, lots of iron 
+
+Type II: (2006bp)
+ huge
+ big explosion 
+ hydrogen around it gets ionized and loses electrons 
+ starts off hot, blue 
+ rapid cooling:
+	UV brightness going down
+	optical less sensitive to temp, more on size
+	V band lasts a 100 days because it gets electrons as it loses energy
+ relatively hot, lots of hydrogen

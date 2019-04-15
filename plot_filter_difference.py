@@ -16,6 +16,7 @@ def filterNullsFromTwoLists(a, b):
 commandLineArgs = argv
 if (len(commandLineArgs) != 6):
     print("usage: python3 plot_filter_v_MJD.py filename.dat x1_filter x2_filter y1_filter y2_filter")
+    print("The produced plot will be (x1_filter - x2_filter) vs. (y1_filter - y2_filter)")
     exit()
 
 
